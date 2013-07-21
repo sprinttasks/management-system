@@ -260,11 +260,11 @@ class Contextly
         return "<div id='" . self::WIDGET_SNIPPET_ID . "' class='" . self::WIDGET_SNIPPET_CLASS . "'>" . $default_html_code . "</div>" . $additional_admin_controls;
     }
 
-	function getPluginJs( $script_name ) {
+	function getPluginJs() {
 		if ( CONTEXTLY_MODE == 'production' ) {
-			return Urls::getPluginJsCdnUrl( $script_name );
+			return Urls::getPluginJsCdnUrl( 'contextly-wordpress.js' );
 		} else {
-		    return plugins_url( 'js/' . $script_name , __FILE__ );
+		    return plugins_url( 'js/contextly-wordpress.js' , __FILE__ );
         }
 	}
 
@@ -280,9 +280,12 @@ class Contextly
             wp_enqueue_script( 'jquery' );
             wp_enqueue_script( 'json2' );
             wp_enqueue_script( 'easy_xdm', Urls::getMainJsCdnUrl( 'easyXDM.min.js' ), 'jquery', CONTEXTLY_PLUGIN_VERSION );
-            wp_enqueue_script( 'pretty_photo', $this->getPluginJs( 'jquery.prettyPhoto.js' ), 'jquery', CONTEXTLY_PLUGIN_VERSION );
+            wp_enqueue_script( 'pretty_photo', plugins_url( 'js/jquery.prettyPhoto.js' , __FILE__ ), 'jquery', CONTEXTLY_PLUGIN_VERSION );						
             wp_enqueue_script( 'contextly-create-class', plugins_url( 'js/contextly-class.js' , __FILE__ ), 'easy_xdm', CONTEXTLY_PLUGIN_VERSION );
-            wp_enqueue_script( 'contextly', $this->getPluginJs( 'contextly-wordpress.js' ), 'contextly-create-class', CONTEXTLY_PLUGIN_VERSION, false );
+            wp_enqueue_script( 'contextly', $this->getPluginJs(), 'contextly-create-class', CONTEXTLY_PLUGIN_VERSION, false );
+			wp_enqueue_script( 'popup_overlay', plugins_url( 'js/jquery.popupoverlay.js' , __FILE__ ), 'jquery', CONTEXTLY_PLUGIN_VERSION );
+			wp_enqueue_script( 'mobile', plugins_url( 'js/mobile_optimization.js' , __FILE__ ), 'jquery', CONTEXTLY_PLUGIN_VERSION );
+			
 
             $ajax_url = plugins_url( 'ajax.php' , __FILE__ );
             $home_url = home_url( '/' );
