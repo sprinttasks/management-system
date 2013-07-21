@@ -13,12 +13,6 @@ class ContextlySettings {
     const OPTIONS_KEY               = 'contextly_options';
     const PLUGIN_NAME               = 'contextly-linker';
 
-    public $tabs                    = array();
-
-    public function init() {
-        $this->initPluginSettingsLink();
-        $this->initWPSettings();
-    }
 
     private function initPluginSettingsLink() {
         add_filter( 'plugin_action_links', array( $this, 'displaySettingsLink' ), 10, 2 );
@@ -35,10 +29,6 @@ class ContextlySettings {
         }
 
         return $links;
-    }
-
-    public function addSettings() {
-        add_options_page( 'Contextly', 'Contextly', 'manage_options', self::OPTIONS_KEY, array( $this, 'displaySettings' ) );
     }
 
     public function registerSettings() {
